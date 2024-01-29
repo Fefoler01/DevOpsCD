@@ -24,3 +24,11 @@ docker-compose up -d --build
   - Configure the pipeline job, adding the `Jenkinsfile` to script section
     ![img](screenshots/Jenkins_pipeline_config.png)
     ![img](screenshots/Jenkins_pipeline_config_script.png)
+  - Adding credentials
+    ![img](screenshots/Jenkins_admin.png)
+    ![img](screenshots/Jenkins_credentials.png)
+    ![img](screenshots/Jenkins_credentials_add.png)
+    ![img](screenshots/Jenkins_credentials_add_docker.png)
+  - Adding tools
+    ![img](screenshots/Jenkins_tools.png)
+    ![img](screenshots/Jenkins_tools_maven.png)

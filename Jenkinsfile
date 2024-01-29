@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     def version = env.BUILD_ID
-                    sh "mvn clean package -Drevision=${version}"
+                    sh "${tool 'Maven'}/bin/mvn clean package -Drevision=${version}"
                 }
             }
         }
