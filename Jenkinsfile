@@ -2,10 +2,16 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')  // Set up Docker Hub credentials in Jenkins
+        DOCKER_HUB_CREDENTIALS = credentials('docker-hub-credentials')
     }
 
     stages {
+        stage('Hello') {
+            steps {
+                echo 'Hello World'
+            }
+        }
+        
         stage('Build') {
             steps {
                 script {
@@ -14,7 +20,7 @@ pipeline {
                 }
             }
         }
-
+        
         stage('Build Docker Image') {
             steps {
                 script {
@@ -26,15 +32,5 @@ pipeline {
                 }
             }
         }
-
-        stage('Deploy to Kubernetes') {
-            steps {
-                script {
-                    // Add kubectl commands to deploy Kubernetes cluster
-                }
-            }
-        }
-
-        // Add more stages for testing, monitoring, etc.
     }
 }
