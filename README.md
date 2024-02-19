@@ -6,8 +6,14 @@ The main purpose of the project is to experiment and visualize how to implement 
 
 Building (if necessary) and running the container:
 ```bash
-docker-compose up -d --build
+docker compose --project-name DevOpsCD up -d
 ```
+To clean up:
+```bash
+docker compose --project-name DevOpsCD down --rmi all --volumes --remove-orphans
+```
+
+*\*Note: These commands are only help to see the project in a docker container but aren't useful for the project himself.*
 
 ## Steps for this project
 - Fork the [repository](https://github.com/mohametdia/ST2DCE-PRJ.git) and clone it locally
@@ -32,3 +38,6 @@ docker-compose up -d --build
   - Adding tools
     ![img](screenshots/Jenkins_tools.png)
     ![img](screenshots/Jenkins_tools_maven.png)
+  - Adding Plugin `Docker`
+    ![img](screenshots/Jenkins_plugin.png)
+    ![img](screenshots/Jenkins_plugin_docker.png)

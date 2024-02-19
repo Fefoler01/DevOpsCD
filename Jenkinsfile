@@ -11,6 +11,13 @@ pipeline {
                 echo 'Hello World'
             }
         }
+
+        // clone the repository from GitHub
+        stage('Clone') {
+            steps {
+                git 'https://github.com/Fefoler01/DevOpsCD'
+            }
+        }
         
         stage('Build') {
             steps {
@@ -24,11 +31,9 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    def dockerImage = "your-docker-username/st2dce:${BUILD_ID}"
-                    docker.withRegistry('https://registry.hub.docker.com', DOCKER_HUB_CREDENTIALS) {
-                        sh "docker build -t ${dockerImage} ."
-                        sh "docker push ${dockerImage}"
-                    }
+                    def dockerImage = "vincem01/st2dce:${BUILD_ID}"
+                    sh "docker build -t ${dockerImage} ."
+                    sh "docker push ${dockerImage}"
                 }
             }
         }
