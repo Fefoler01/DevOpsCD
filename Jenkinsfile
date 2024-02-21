@@ -6,34 +6,23 @@ node {
 
 
     stage('Hello') {
-        steps {
-            echo 'Hello World'
-        }
+        echo 'Hello World'
     }
 
     // clone the repository from GitHub
     stage('Clone') {
-        steps {
-            git 'https://github.com/Fefoler01/DevOpsCD.git'
-        }
+        git 'https://github.com/Fefoler01/DevOpsCD.git'
     }
     
     stage('Build') {
-        steps {
-            script {
-                def version = env.BUILD_ID
-                sh "${tool 'Maven'}/bin/mvn clean package -Drevision=${version}"
-            }
+        script {
+            def version = env.BUILD_ID
+            sh "${tool 'Maven'}/bin/mvn clean package -Drevision=${version}"
         }
     }
     
     stage('Build Docker Image') {
-        steps {
-            script {
-                sh "docker build -t ${dockerImage} ."
-                sh "docker push ${dockerImage}"
-            }
-        }
+        sh "docker build -t ${dockerImage} ."
+        sh "docker push ${dockerImage}"
     }
-    
 }
