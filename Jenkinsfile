@@ -2,27 +2,32 @@ node {
 
     def mvnHome = tool 'Maven'
     def dockerImage
-    def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
+    def dockerImageTag = "devopscd:${env.BUILD_NUMBER}"
 
 
-    stage('Hello') {
+    stage('Hello'){
         echo 'Hello World'
     }
 
     // clone the repository from GitHub
-    stage('Clone') {
+    stage('Clone'){
         git 'https://github.com/Fefoler01/DevOpsCD.git'
     }
     
-    stage('Build') {
-        script {
-            def version = env.BUILD_ID
-            sh "${tool 'Maven'}/bin/mvn clean package -Drevision=${version}"
-        }
+    stage('Build Project'){
+        sh "'${mvnHome}/bin/mvn' -B -DskipTests clean package"
+    }
+
+    stage('Initialize Docker'){
+        def dockerHome = tool 'Docker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
     
-    stage('Build Docker Image') {
-        sh "docker build -t ${dockerImage} ."
-        sh "docker push ${dockerImage}"
+    stage('Build Docker Image'){
+        sh "docker -H tcp://10.3.212.140:2375 build -t ${dockerImageTag} ."
+    }
+
+    stage('Deploy'){
+        sh "doker -H tcp://10.3.212.140:2375 run --name devopscd -d -p 2222:2222 ${dockerImageTag}"
     }
 }
