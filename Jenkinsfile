@@ -1,6 +1,6 @@
 node {
 
-    def mvnHome = tool 'maven-3.9.6'
+    def mvnHome = tool 'Maven'
     def dockerImage
     def dockerImageTag = "devopsexample${env.BUILD_NUMBER}"
 
