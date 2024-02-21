@@ -30,7 +30,6 @@ node {
     stage('Build Docker Image') {
         steps {
             script {
-                def dockerImage = "vincem01/st2dce:${BUILD_ID}"
                 sh "docker build -t ${dockerImage} ."
                 sh "docker push ${dockerImage}"
             }
