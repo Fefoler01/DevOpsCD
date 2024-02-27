@@ -41,3 +41,6 @@ docker compose --project-name DevOpsCD down --rmi all --volumes --remove-orphans
   - Adding Plugin `Docker`
     ![img](screenshots/Jenkins_plugin.png)
     ![img](screenshots/Jenkins_plugin_docker.png)
+  - Create a cloud docker
+    ![img](screenshots/Jenkins_cloud.png)
+  - Add `0.0.1-SNAPSHOT` in the Dockerfile
