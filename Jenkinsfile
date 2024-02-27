@@ -29,6 +29,6 @@ node {
     }
 
     stage('Deploy'){
-        sh "doker -H tcp://${ip}:2375 run --name devopscd -d -p 2222:2222 ${dockerImageTag}"
+        sh "docker -H tcp://${ip}:2375 run --name devopscd -d -p 2222:2222 ${dockerImageTag}"
     }
 }
