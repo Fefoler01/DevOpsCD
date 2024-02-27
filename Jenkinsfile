@@ -8,11 +8,6 @@ node {
     stage('Hello'){
         echo 'Hello World'
     }
-
-    // clone the repository from GitHub
-    stage('Clone'){
-        git 'https://github.com/Fefoler01/DevOpsCD.git'
-    }
     
     stage('Build Project'){
         sh "'${mvnHome}/bin/mvn' -B -DskipTests clean package"
