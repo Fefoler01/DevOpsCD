@@ -9,6 +9,10 @@ node {
     stage('Hello'){
         echo 'Hello World'
     }
+
+    stage('Git Pull'){
+        sh 'git pull'
+    }
     
     stage('Build Project'){
         sh "'${mvnHome}/bin/mvn' -B -DskipTests clean package"
