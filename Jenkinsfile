@@ -27,7 +27,7 @@ node {
     stage('Clean Docker'){
         sh "docker -H tcp://${ip}:2375 stop ${dockerImage} || true"
         sh "docker -H tcp://${ip}:2375 rm ${dockerImage} || true"
-        sh "docker -H tcp://${ip}:2375 rmi \$(docker -H tcp://${ip}:2375 images -q ${dockerImage}) || true"
+        sh "docker -H tcp://${ip}:2375 rmi \$(docker -H tcp://${ip}:2375 images -qf ${dockerImage}) || true"
     }
     
     stage('Build Docker Image'){
