@@ -2,8 +2,8 @@ node {
 
     def ip = 'host.docker.internal'
     def mvnHome = tool 'Maven'
-    def dockerImage
-    def dockerImageTag = "devopscd:${env.BUILD_NUMBER}"
+    def dockerImage = 'devopscd' // this is also the name of the docker container
+    def dockerImageTag = "${env.BUILD_NUMBER}"
 
 
     stage('Hello'){
@@ -23,13 +23,18 @@ node {
         def dockerHome = tool 'Docker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
+
+    stage('Clean Docker'){
+        sh "docker -H tcp://${ip}:2375 stop ${dockerImage} || true"
+        sh "docker -H tcp://${ip}:2375 rm ${dockerImage} || true"
+        sh "docker -H tcp://${ip}:2375 rmi ${dockerImage} || true"
+    }
     
     stage('Build Docker Image'){
-        sh "docker -H tcp://${ip}:2375 build -t ${dockerImageTag} ."
+        sh "docker -H tcp://${ip}:2375 build -t ${dockerImage}:${dockerImageTag} ."
     }
 
     stage('Deploy'){
-        sh "docker -H tcp://${ip}:2375 stop devopscd || true"
-        sh "docker -H tcp://${ip}:2375 run --name devopscd -d -p 2222:2222 ${dockerImageTag}"
+        sh "docker -H tcp://${ip}:2375 run --name ${dockerImage} -d -p 2222:2222 ${dockerImage}:${dockerImageTag}"
     }
 }
