@@ -11,6 +11,7 @@ node {
     }
 
     stage('Git Pull'){
+        sh 'git checkout main'
         sh 'git pull'
     }
     
