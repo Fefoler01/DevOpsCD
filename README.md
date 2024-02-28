@@ -46,3 +46,6 @@ docker compose --project-name DevOpsCD down --rmi all --volumes --remove-orphans
   - Add `0.0.1-SNAPSHOT` in the Dockerfile
   - Finally we can test and we obtain the following result
     ![img](screenshots/Jenkins_deploy_succeed.png)
+  - Adding Plugin `Kubernetes`
+    ![img](screenshots/Jenkins_plugin_kubernetes.png)
+  - Create a cloud kubernetes
