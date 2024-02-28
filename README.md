@@ -44,3 +44,5 @@ docker compose --project-name DevOpsCD down --rmi all --volumes --remove-orphans
   - Create a cloud docker
     ![img](screenshots/Jenkins_cloud.png)
   - Add `0.0.1-SNAPSHOT` in the Dockerfile
+  - Finally we can test and we obtain the following result
+    ![img](screenshots/Jenkins_deploy_succeed.png)

@@ -1,5 +1,7 @@
 node {
 
+    def dockerHub = 'vincem01' // use your docker hub username!
+
     def ip = 'host.docker.internal'
     def mvnHome = tool 'Maven'
     def dockerImage = 'devopscd' // this is also the name of the docker container
@@ -36,5 +38,10 @@ node {
 
     stage('Deploy'){
         sh "docker -H tcp://${ip}:2375 run --name ${dockerImage} -d -p 2222:2222 ${dockerImage}:${dockerImageTag}"
+    }
+
+    stage('Publish'){
+        sh "docker image tag ${dockerImage}:${dockerImageTag} ${dockerHub}/${dockerImage}:${dockerImageTag}"
+        sh "docker -H tcp://${ip}:2375 push ${dockerHub}/${dockerImage}:${dockerImageTag}"
     }
 }
