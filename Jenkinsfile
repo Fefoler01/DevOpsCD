@@ -48,10 +48,6 @@ node {
         }
     }
 
-    stage('Mount kubeconfig'){
-        sh "minikube -p minikube docker-env"
-    }
-
     stage('Create deployment file'){
         writeFile file: 'deployment.yaml',
         text: """
