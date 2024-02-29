@@ -8,9 +8,9 @@ node {
     def dockerImageTag = "${env.BUILD_NUMBER}"
 
 
-    stage('Hello'){
+    /*stage('Hello'){
         echo 'Hello World'
-    }
+    }*/
 
     stage('Git Pull'){
         sh 'git checkout main'
@@ -36,9 +36,9 @@ node {
         sh "docker -H tcp://${ip}:2375 build -t ${dockerImage}:${dockerImageTag} ."
     }
 
-    stage('Deploy'){
+    /*stage('Deploy'){
         sh "docker -H tcp://${ip}:2375 run --name ${dockerImage} -d -p 2222:2222 ${dockerImage}:${dockerImageTag}"
-    }
+    }*/
 
     stage('Publish'){
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USR', passwordVariable: 'DOCKER_HUB_PSW')]) {
@@ -77,9 +77,11 @@ node {
         """
     }
 
-    stage('Deploy to Minikube'){
-        sh "kubectl --help"
-        //sh "kubectl apply -f deployment.yaml"
+    stage('Deploy to Minikube'){ //https://127.0.0.1:58165
+        withKubeConfig([credentialsId: 'k8s-credentials', serverUrl: "https://${ip}:58165"]) {
+            sh "kubectl version"
+            //sh "kubectl apply -f deployment.yaml"
+        }
     }
 
     /*stage('Deploy to Kubernetes'){
