@@ -48,7 +48,7 @@ node {
         }
     }
 
-    stage('Create deployment file'){
+    stage('Create deployment and service file'){
         writeFile file: 'deployment.yaml',
         text: """
         apiVersion: apps/v1
@@ -70,14 +70,26 @@ node {
                     image: ${dockerHub}/${dockerImage}:${dockerImageTag}
                     ports:
                     - containerPort: 2222
+        ---
+        apiVersion: v1
+        kind: Service
+        metadata:
+            name: ${dockerImage}
+        spec:
+            selector:
+                app: ${dockerImage}
+            ports:
+            - protocol: TCP
+            port: 80
+            targetPort: 2222
+            type: LoadBalancer
         """
     }
 
-    stage('Deploy to Minikube'){ //https://127.0.0.1:58165
-        withKubeConfig([credentialsId: 'k8s-credentials', serverUrl: "https://${ip}:58165"]) {
-            sh "kubectl version"
-            //sh "kubectl apply -f deployment.yaml"
-        }
+    stage('Deploy to Kubernetes'){
+        kubernetesDeploy(
+            configs: 'deployment.yaml'
+        )
     }
 
     /*stage('Deploy to Kubernetes'){
