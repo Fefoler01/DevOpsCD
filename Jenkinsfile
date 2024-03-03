@@ -13,11 +13,8 @@ node {
     }*/
 
     stage('Git Pull'){
-        sh 'git clone https://github.com/Fefoler01/DevOpsCD.git'
-        sh 'cd DevOpsCD'
+        sh 'git clone https://github.com/Fefoler01/DevOpsCD.git .'
         sh 'ls -la'
-        sh 'git checkout main'
-        sh 'git pull'
     }
     
     stage('Build Project'){
