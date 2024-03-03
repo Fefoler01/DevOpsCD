@@ -13,7 +13,8 @@ node {
     }*/
 
     stage('Git Pull'){
-        sh 'git checkout main'
+        sh 'ls -la'
+        sh 'git checkout main || true'
         sh 'git pull'
     }
     
