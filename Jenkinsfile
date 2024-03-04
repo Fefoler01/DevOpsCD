@@ -3,7 +3,7 @@ node {
     def dockerHub = 'vincem01' // use your docker hub username!
 
     def ip = 'host.docker.internal'
-    def mvnHome = tool 'maven'
+    def mvnHome = tool 'Maven'
     def dockerImage = 'devopscd' // this is also the name of the docker container
     def dockerImageTag = "${env.BUILD_NUMBER}"
 
@@ -24,7 +24,7 @@ node {
     }
 
     stage('Initialize Docker'){
-        def dockerHome = tool 'docker'
+        def dockerHome = tool 'Docker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
 
