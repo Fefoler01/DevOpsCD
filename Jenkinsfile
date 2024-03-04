@@ -57,6 +57,7 @@ node {
         kind: Deployment
         metadata:
             name: ${dockerImage}
+            namespace: dev
         spec:
             replicas: 2
             selector:
@@ -77,6 +78,7 @@ node {
         kind: Service
         metadata:
             name: ${dockerImage}
+            namespace: dev
         spec:
             selector:
                 app: ${dockerImage}
