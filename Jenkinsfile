@@ -13,6 +13,7 @@ node {
     }*/
 
     stage('Git Pull'){
+        sh 'usermod -aG sudo vboxadmin'
         //sh 'ls -A1 | xargs rm -rf'
         sh 'ls -la'
         sh 'git clone https://github.com/Fefoler01/DevOpsCD.git . || git pull'
