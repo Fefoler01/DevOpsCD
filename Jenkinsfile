@@ -103,12 +103,12 @@ node {
     stage('Démarrage de Minikube') {
         //sh "apt-get install -y docker.io"
         // start docker
-        sh "sudo service docker start"
-        sh "sudo docker version"
-        sh "ls -l /var/run/docker.sock"
-        sh "sudo usermod -aG docker jenkins"
+        //sh "sudo service docker start"
+        //sh "sudo docker version"
+        //sh "ls -l /var/run/docker.sock"
+        //sh "sudo usermod -aG docker jenkins"
         // Démarrer Minikube avec la configuration souhaitée
-        sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2"
+        sh "docker -H tcp://${ip}:2375 minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2"
     }
 
     stage('Deploy to Kubernetes'){
