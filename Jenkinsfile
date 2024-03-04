@@ -26,7 +26,7 @@ node {
     stage('Initialize Docker'){
         def dockerHome = tool 'Docker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
-        sh "docker -H tcp://${ip}:2375 ps"
+        //sh "docker -H tcp://${ip}:2375 ps"
     }
 
     /*stage('Clean Docker'){
@@ -102,7 +102,7 @@ node {
 
     stage('Démarrage de Minikube') {
         // Démarrer Minikube avec la configuration souhaitée
-        sh 'minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2 --docker-env DOCKER_HOST=tcp://${ip}:2375'
+        sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2 --docker-env DOCKER_HOST=tcp://${ip}:2375"
     }
 
     stage('Deploy to Kubernetes'){
