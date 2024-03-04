@@ -14,8 +14,7 @@ node {
 
     stage('Git Pull'){
         sh 'ls -la'
-        sh 'rm -rf *'
-        sh 'git clone https://github.com/Fefoler01/DevOpsCD.git .'
+        sh 'git clone https://github.com/Fefoler01/DevOpsCD.git . || git pull'
         sh 'ls -la'
     }
     
