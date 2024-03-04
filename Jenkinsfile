@@ -8,10 +8,6 @@ node {
     def dockerImageTag = "${env.BUILD_NUMBER}"
 
 
-    /*stage('Hello'){
-        echo 'Hello World'
-    }*/
-
     stage('Git Pull'){
         //sh 'ls -A1 | xargs rm -rf'
         sh 'ls -la'
@@ -29,27 +25,27 @@ node {
         //sh "docker -H tcp://${ip}:2375 ps"
     }
 
-    /*stage('Clean Docker'){
+    stage('Clean Docker'){
         sh "docker -H tcp://${ip}:2375 stop ${dockerImage} || true"
         sh "docker -H tcp://${ip}:2375 rm ${dockerImage} || true"
         sh "docker -H tcp://${ip}:2375 rmi -f \$(docker -H tcp://${ip}:2375 images -q ${dockerImage}) || true"
-    }*/
+    }
     
-    /*stage('Build Docker Image'){
+    stage('Build Docker Image'){
         sh "docker -H tcp://${ip}:2375 build -t ${dockerImage}:${dockerImageTag} ."
-    }*/
+    }
 
     /*stage('Deploy'){
         sh "docker run --name ${dockerImage} -d -p 2222:2222 ${dockerImage}:${dockerImageTag}"
     }*/
 
-    /*stage('Publish'){
+    stage('Publish'){
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USR', passwordVariable: 'DOCKER_HUB_PSW')]) {
             sh "docker -H tcp://${ip}:2375 login -u $DOCKER_HUB_USR -p $DOCKER_HUB_PSW"
             sh "docker -H tcp://${ip}:2375 image tag ${dockerImage}:${dockerImageTag} ${dockerHub}/${dockerImage}:${dockerImageTag}"
             sh "docker -H tcp://${ip}:2375 push ${dockerHub}/${dockerImage}:${dockerImageTag}"
         }
-    }*/
+    }
 
     stage('Create deployment and service file'){
         writeFile file: 'deployment.yaml',
@@ -101,24 +97,14 @@ node {
     }
 
     stage('Démarrage de Minikube') {
-        //sh "apt-get install -y docker.io"
-        // start docker
-        //sh "sudo service docker start"
-        //sh "sudo docker version"
-        //sh "ls -l /var/run/docker.sock"
-        //sh "sudo usermod -aG docker jenkins"
+        sh "sudo docker version"
         // Démarrer Minikube avec la configuration souhaitée
-        sh "sudo dockerd -H tcp://${ip}:2375 &"
-        sleep 10
         sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2"
     }
 
     stage('Deploy to Kubernetes'){
         sh 'kubectl get pods'
         //sh 'kubectl apply -f deployment.yaml'
-        /*kubernetesDeploy(
-            configs: 'deployment.yaml'
-        )*/
     }
 
     /*stage('Deploy to Kubernetes'){
