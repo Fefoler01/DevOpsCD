@@ -103,7 +103,7 @@ node {
     stage('Démarrage de Minikube') {
         //sh "apt-get install -y docker.io"
         // start docker
-        sh "sudo systemctl start docker"
+        sh "sudo service docker start"
         // Démarrer Minikube avec la configuration souhaitée
         sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2"
     }
