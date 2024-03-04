@@ -101,6 +101,7 @@ node {
     }
 
     stage('Démarrage de Minikube') {
+        sh 'service docker status'
         // Démarrer Minikube avec la configuration souhaitée
         sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2 --docker-env DOCKER_HOST=tcp://${ip}:2375"
     }
