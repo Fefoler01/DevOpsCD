@@ -28,27 +28,27 @@ node {
         env.PATH = "${dockerHome}/bin:${env.PATH}"
     }
 
-    /*stage('Clean Docker'){
+    stage('Clean Docker'){
         sh "docker stop ${dockerImage} || true"
         sh "docker rm ${dockerImage} || true"
         sh "docker rmi -f \$(docker images -q ${dockerImage}) || true"
-    }*/
+    }
     
-    /*stage('Build Docker Image'){
+    stage('Build Docker Image'){
         sh "docker build -t ${dockerImage}:${dockerImageTag} ."
-    }*/
+    }
 
     /*stage('Deploy'){
         sh "docker run --name ${dockerImage} -d -p 2222:2222 ${dockerImage}:${dockerImageTag}"
     }*/
 
-    /*stage('Publish'){
+    stage('Publish'){
         withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKER_HUB_USR', passwordVariable: 'DOCKER_HUB_PSW')]) {
             sh "docker login -u $DOCKER_HUB_USR -p $DOCKER_HUB_PSW"
             sh "docker image tag ${dockerImage}:${dockerImageTag} ${dockerHub}/${dockerImage}:${dockerImageTag}"
             sh "docker push ${dockerHub}/${dockerImage}:${dockerImageTag}"
         }
-    }*/
+    }
 
     stage('Create deployment and service file'){
         writeFile file: 'deployment.yaml',
@@ -100,7 +100,6 @@ node {
     }
 
     stage('Démarrage de Minikube') {
-        sh 'sudo service docker restart'
         // Démarrer Minikube avec la configuration souhaitée
         sh 'minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2'
     }
