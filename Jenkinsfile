@@ -101,9 +101,9 @@ node {
     }
 
     stage('Démarrage de Minikube') {
-        sh "docker -H tcp://${ip}:2375 info"
+        sh "apt-get install -y docker.io"
         // Démarrer Minikube avec la configuration souhaitée
-        sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2 --docker-env DOCKER_HOST=tcp://${ip}:2375"
+        sh "minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2"
     }
 
     stage('Deploy to Kubernetes'){
