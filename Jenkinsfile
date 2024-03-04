@@ -91,8 +91,9 @@ node {
     }
 
     stage('Install minikube'){
+        sh 'usermod -aG sudo jenkins'
         // Télécharger et installer Minikube
-        sh 'curl -Lo /usr/local/bin/minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube'
+        sh 'curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube'
         sh 'echo $PATH'
 
         // Télécharger et installer kubectl
