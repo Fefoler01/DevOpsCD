@@ -26,7 +26,7 @@ node {
     stage('Initialize Docker'){
         def dockerHome = tool 'Docker'
         env.PATH = "${dockerHome}/bin:${env.PATH}"
-        sh 'docker -H tcp://${ip}:2375 ps'
+        sh "docker -H tcp://${ip}:2375 ps"
     }
 
     /*stage('Clean Docker'){
