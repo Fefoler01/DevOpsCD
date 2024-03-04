@@ -93,15 +93,16 @@ node {
     stage('Install minikube'){
         // Télécharger et installer Minikube
         sh 'curl -Lo minikube https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && chmod +x minikube'
-
+        sh "which minikube"
         // Télécharger et installer kubectl
         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && chmod +x ./kubectl'
     
     }
         
     stage('Démarrage de Minikube') {        
-            // Démarrer Minikube avec la configuration souhaitée
-            sh 'minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2'        
+        
+        // Démarrer Minikube avec la configuration souhaitée
+        sh 'minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2'        
     }
 
     stage('Deploy to Kubernetes'){
