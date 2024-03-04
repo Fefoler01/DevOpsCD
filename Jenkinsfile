@@ -100,7 +100,7 @@ node {
     }
 
     stage('Démarrage de Minikube') {
-        sh 'usermod -aG docker jenkins'
+        sh 'sudo service docker restart'
         // Démarrer Minikube avec la configuration souhaitée
         sh 'minikube start --kubernetes-version=v1.23.0 --memory=4096 --cpus=2'
     }
